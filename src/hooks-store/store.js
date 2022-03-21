@@ -5,7 +5,7 @@ let globalState = {};
 let listeners = [];
 let actions = {};
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
   // only need updating state function
   const setState = useState(globalState)[1];
 
@@ -23,13 +23,15 @@ export const useStore = () => {
 
   // when component uses store setState is pushed as a useable function
   useEffect(() => {
-    listeners.push(setState);
+    if (shouldListen) listeners.push(setState);
 
     // when component unmounts all listeners except setState are removed
-    return () => {
-      listeners = listeners.filter((li) => li !== setState);
-    };
-  }, [setState]);
+    if (shouldListen) {
+      return () => {
+        listeners = listeners.filter((li) => li !== setState);
+      };
+    }
+  }, [setState, shouldListen]);
 
   return [globalState, dispatch];
 };

@@ -7,8 +7,8 @@ import { useStore } from "../hooks-store/store";
 
 const Favorites = (props) => {
   const state = useStore()[0];
-
   const favoriteProducts = state.products.filter((p) => p.isFavorite);
+
   let content = <p className="placeholder">Got no favorites yet!</p>;
   if (favoriteProducts.length > 0) {
     content = (

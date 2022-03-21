@@ -7,7 +7,6 @@ import { useStore } from "../hooks-store/store";
 
 const Products = (props) => {
   const state = useStore()[0];
-  console.log(state);
 
   return (
     <ul className="products-list">
